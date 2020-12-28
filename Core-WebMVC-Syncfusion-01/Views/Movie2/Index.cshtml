@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Movie - Remote";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Movie with Remote Data</h1>
+</div>
+
+<ejs-grid id="Grid" height="272" allowPaging="true" allowSorting="true" allowFiltering="true"
+          toolbar="@(new List<string>() { "Add", "Edit", "Delete","Update","Cancel" , "ExcelExport" , "CsvExport" ,"PdfExport"})"
+          allowSelection="true" allowExcelExport="true" allowPdfExport="true" toolbarClick="toolbarClick">
+    <e-data-manager url="/Movie2/UrlDataSource" adaptor="UrlAdaptor" insertUrl="/Movie2/Insert" updateUrl="/Movie2/Update"
+                    removeUrl="/Movie2/Delete"></e-data-manager>
+    <e-grid-filterSettings type="Menu"></e-grid-filterSettings>
+    <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Dialog"></e-grid-editSettings>
+    <e-grid-pagesettings pageCount="4" pageSizes="true"></e-grid-pagesettings>
+    <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+    <e-grid-columns>
+        <e-grid-column type="checkbox" width="50"></e-grid-column>
+        <e-grid-column field="Id" headerText="Id" isPrimaryKey="true" isIdentity="true" visible="false"></e-grid-column>
+        <e-grid-column field="Title" headerText="Title" textAlign="Left"></e-grid-column>
+        <e-grid-column field="ReleaseDate" headerText="Release Date" textAlign="Center" editType="datepickeredit" type="date"
+                       customFormat="@(new { type ="date", format="dd/MM/yyyy" })"></e-grid-column>
+        <e-grid-column field="Genre" headerText="Genre" textAlign="Center"></e-grid-column>
+        <e-grid-column field="Price" headerText="Price" textAlign="Right" editType="numericedit" format="N2"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+<script>
+    function toolbarClick(args) {
+        if (args.item.id === this.element.id + '_pdfexport') {
+            this.pdfExport();
+        }
+        if (args.item.id === this.element.id + '_csvexport') {
+            this.csvExport();
+        }
+        if (args.item.id === this.element.id + '_excelexport') {
+            this.excelExport();
+        }
+    }
+</script>

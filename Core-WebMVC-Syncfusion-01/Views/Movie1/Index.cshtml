@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Movie - Local";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Movie with Local Data</h1>
+</div>
+
+<ejs-grid id="Grid" dataSource="@ViewBag.datasource" height="272" allowPaging="true" allowSorting="true" allowFiltering="true"
+          toolbar="@(new List<string>() { "Add", "Edit", "Delete","Update","Cancel" , "ExcelExport" , "CsvExport" ,"PdfExport"})"
+          allowSelection="true" allowExcelExport="true" allowPdfExport="true" toolbarClick="toolbarClick">
+    <e-grid-pagesettings pageSize="12" />
+    <e-grid-filterSettings type="Excel"></e-grid-filterSettings>
+    <e-grid-editSettings allowAdding="true" allowDeleting="true" allowEditing="true" mode="Dialog"></e-grid-editSettings>
+    <e-grid-selectionsettings type="Single"></e-grid-selectionsettings>
+    <e-grid-columns>
+        <e-grid-column type="checkbox" width="50"></e-grid-column>
+        <e-grid-column field="Id" headerText="Id" isPrimaryKey="true" isIdentity="true"></e-grid-column>
+        <e-grid-column field="Title" headerText="Title"></e-grid-column>
+        <e-grid-column field="ReleaseDate" headerText="Release Date" editType="datepickeredit" type="date" 
+                       customFormat="@(new { type ="date", format="dd/MM/yyyy" })"></e-grid-column>
+        <e-grid-column field="Genre" headerText="Genre"></e-grid-column>
+        <e-grid-column field="Price" headerText="Price" editType="numericedit" format="N2"></e-grid-column>
+    </e-grid-columns>
+</ejs-grid>
+
+<script>
+    function toolbarClick(args) {
+        if (args.item.id === this.element.id + '_pdfexport') {
+            this.pdfExport();
+        }
+        if (args.item.id === this.element.id + '_csvexport') {
+            this.csvExport();
+        }
+        if (args.item.id === this.element.id + '_excelexport') {
+            this.excelExport();
+        }
+    }
+</script>
